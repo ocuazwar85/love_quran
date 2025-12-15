@@ -1,0 +1,176 @@
+{
+  "entities": {
+    "DoaCategory": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "DoaCategory",
+      "type": "object",
+      "description": "Represents a category for Doa.",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the category." },
+        "name": { "type": "string", "description": "The name of the category." }
+      },
+      "required": ["id", "name"]
+    },
+    "HadithCategory": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "HadithCategory",
+      "type": "object",
+      "description": "Represents a category for Hadith.",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the category." },
+        "name": { "type": "string", "description": "The name of the category." }
+      },
+      "required": ["id", "name"]
+    },
+    "Surah": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Surah",
+      "type": "object",
+      "description": "Represents a Surah (chapter) in the Quran.",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the Surah entity." },
+        "number": { "type": "number", "description": "The number of the Surah in the Quran." },
+        "nameArabic": { "type": "string", "description": "The name of the Surah in Arabic." },
+        "nameIndonesian": { "type": "string", "description": "The name of the Surah in Indonesian." },
+        "totalAyahs": { "type": "number", "description": "The total number of Ayahs (verses) in the Surah." }
+      },
+      "required": ["id", "number", "nameArabic", "nameIndonesian", "totalAyahs"]
+    },
+    "Ayah": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Ayah",
+      "type": "object",
+      "description": "Represents an Ayah (verse) in the Quran.",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the Ayah entity." },
+        "surahId": { "type": "string", "description": "Reference to Surah. (Relationship: Surah 1:N Ayah)" },
+        "numberInSurah": { "type": "number", "description": "The number of the Ayah within its Surah." },
+        "textArabic": { "type": "string", "description": "The Arabic text of the Ayah." },
+        "textIndonesian": { "type": "string", "description": "The Indonesian translation of the Ayah." },
+        "textTransliteration": { "type": "string", "description": "The transliteration of the Ayah from Arabic to Indonesian." }
+      },
+      "required": ["id", "surahId", "numberInSurah", "textArabic", "textIndonesian", "textTransliteration"]
+    },
+    "Tafsir": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Tafsir",
+      "type": "object",
+      "description": "Represents a Tafsir (interpretation) of an Ayah.",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the Tafsir entity." },
+        "ayahId": { "type": "string", "description": "Reference to Ayah. (Relationship: Ayah 1:N Tafsir)" },
+        "text": { "type": "string", "description": "The text of the Tafsir." },
+        "source": { "type": "string", "description": "The source of the Tafsir (e.g., name of the book)." }
+      },
+      "required": ["id", "ayahId", "text", "source"]
+    },
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the application. Note: Does not store authentication data.",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the User entity." },
+        "name": { "type": "string", "description": "The user's name." },
+        "email": { "type": "string", "description": "The user's email address.", "format": "email" },
+        "settings": { "type": "string", "description": "User specific settings, such as preferred theme, text size, etc. Represented as a JSON string." }
+      },
+      "required": ["id", "name", "email"]
+    },
+    "VerseBookmark": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "VerseBookmark",
+      "type": "object",
+      "description": "Represents a bookmark created by a user for a specific verse.",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the VerseBookmark entity." },
+        "userId": { "type": "string", "description": "Reference to User. (Relationship: User 1:N VerseBookmark)" },
+        "ayahId": { "type": "string", "description": "Reference to Ayah. (Relationship: Ayah 1:N VerseBookmark)" },
+        "createdAt": { "type": "string", "description": "Timestamp indicating when the bookmark was created.", "format": "date-time" }
+      },
+      "required": ["id", "userId", "ayahId", "createdAt"]
+    },
+    "Doa": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Doa",
+      "type": "object",
+      "description": "Represents a daily prayer (doa).",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the Doa entity." },
+        "doa": { "type": "string", "description": "The title of the prayer." },
+        "ayat": { "type": "string", "description": "The Arabic text of the prayer." },
+        "latin": { "type": "string", "description": "The transliteration of the prayer." },
+        "artinya": { "type": "string", "description": "The meaning/translation of the prayer." },
+        "kategori": { "type": "string", "description": "The category of the prayer." }
+      },
+      "required": ["id", "doa", "ayat", "latin", "artinya"]
+    },
+    "Hadith": {
+      "title": "Hadith",
+      "type": "object",
+      "description": "Represents a Hadith of Prophet Muhammad SAW.",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the Hadith entity." },
+        "namaHadist": { "type": "string", "description": "The title or name of the Hadith." },
+        "kategori": { "type": "string", "description": "The category of the Hadith." },
+        "tulisanArab": { "type": "string", "description": "The Arabic text of the Hadith." },
+        "latin": { "type": "string", "description": "The transliteration of the Hadith." },
+        "arti": { "type": "string", "description": "The translation/meaning of the Hadith." },
+        "penjelasan": { "type": "string", "description": "An explanation or context for the Hadith." },
+        "riwayat": { "type": "string", "description": "The narrator or source of the Hadith (e.g., HR. Bukhari)." }
+      },
+      "required": ["id", "namaHadist", "kategori", "tulisanArab", "latin", "arti", "penjelasan", "riwayat"]
+    },
+    "PrayerSchedule": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PrayerSchedule",
+      "type": "object",
+      "description": "Represents prayer schedules for a specific city and month, cached from an external API.",
+      "properties": {
+        "id": { "type": "string", "description": "Composite unique identifier for the schedule, typically in the format 'cityId_year_month'." },
+        "cityId": { "type": "string", "description": "The ID of the city for which the schedule is." },
+        "cityName": { "type": "string", "description": "The name of the city." },
+        "year": { "type": "number", "description": "The year of the schedule." },
+        "month": { "type": "number", "description": "The month of the schedule (1-12)." },
+        "schedules": {
+          "type": "array",
+          "description": "An array of daily prayer time objects for the entire month.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tanggal": { "type": "string" }, "imsak": { "type": "string" }, "subuh": { "type": "string" },
+              "terbit": { "type": "string" }, "dhuha": { "type": "string" }, "dzuhur": { "type": "string" },
+              "ashar": { "type": "string" }, "maghrib": { "type": "string" }, "isya": { "type": "string" }
+            }
+          }
+        }
+      },
+      "required": ["id", "cityId", "cityName", "year", "month", "schedules"]
+    },
+    "Advertisement": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Advertisement",
+        "type": "object",
+        "description": "Represents an advertisement slot in the application.",
+        "properties": {
+            "id": { "type": "string", "description": "The unique identifier for the ad, often matching the position ID." },
+            "positionId": { "type": "string", "description": "The defined position where the ad will appear (e.g., 'sidebar-footer')." },
+            "adCode": { "type": "string", "description": "The HTML/JavaScript code snippet for the ad provided by the ad network." },
+            "isActive": { "type": "boolean", "description": "A flag to enable or disable the ad slot." }
+        },
+        "required": ["id", "positionId", "adCode", "isActive"]
+    }
+  },
+  "auth": { "providers": ["password", "anonymous"] },
+  "firestore": {
+    "/doas/{doaId}": { "schema": { "$ref": "#/entities/Doa" }, "description": "Stores daily prayers (doas)." },
+    "/doaCategories/{categoryId}": { "schema": { "$ref": "#/entities/DoaCategory" }, "description": "Stores categories for Doa." },
+    "/hadiths/{hadithId}": { "schema": { "$ref": "#/entities/Hadith" }, "description": "Stores Hadiths." },
+    "/hadithCategories/{categoryId}": { "schema": { "$ref": "#/entities/HadithCategory" }, "description": "Stores categories for Hadith." },
+    "/users/{userId}": { "schema": { "$ref": "#/entities/User" }, "description": "Stores user profile data." },
+    "/prayerSchedules/{scheduleId}": { "schema": { "$ref": "#/entities/PrayerSchedule" }, "description": "Stores cached monthly prayer schedules." },
+    "/advertisements/{adId}": { "schema": { "$ref": "#/entities/Advertisement"}, "description": "Stores advertisement code snippets for various positions in the app."}
+  }
+}
+
+    

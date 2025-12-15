@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    match /doas/{doaId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    match /doaCategories/{categoryId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+    
+    match /hadiths/{hadithId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    match /hadithCategories/{categoryId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    match /prayerSchedules/{scheduleId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    match /advertisements/{adId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+  }
+}
