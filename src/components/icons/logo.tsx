@@ -8,7 +8,7 @@ export const Logo = ({ className, ...props }: React.ComponentProps<"div">) => (
         {...props}
     >
         <Image
-            src="https://w7.pngwing.com/pngs/43/379/png-transparent-al-quran-thumbnail.png"
+            src="/logo-anda.png"
             alt="Love Al-Quran Logo"
             fill
             sizes="40px"
